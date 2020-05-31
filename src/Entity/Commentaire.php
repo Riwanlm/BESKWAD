@@ -27,6 +27,18 @@ class Commentaire
      */
     private $dateCreation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaire")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaire")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $evenement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +64,30 @@ class Commentaire
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): self
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }

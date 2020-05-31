@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -48,6 +50,34 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $dateNaissance;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="userCreate", orphanRemoval=true)
+     */
+    private $evenementCréeate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Evenement::class, inversedBy="usersJoin")
+     */
+    private $evenementJoin;
+
+    public function __construct()
+    {
+        $this->commentaire = new ArrayCollection();
+        $this->evenementCréeate = new ArrayCollection();
+        $this->evenementJoin = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +189,106 @@ class User implements UserInterface
     public function setDateNaissance(\DateTimeInterface $dateNaissance): self
     {
         $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire[] = $commentaire;
+            $commentaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaire->contains($commentaire)) {
+            $this->commentaire->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenementCréeate(): Collection
+    {
+        return $this->evenementCréeate;
+    }
+
+    public function addEvenementCrEate(Evenement $evenementCrEate): self
+    {
+        if (!$this->evenementCréeate->contains($evenementCrEate)) {
+            $this->evenementCréeate[] = $evenementCrEate;
+            $evenementCrEate->setUserCreate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenementCrEate(Evenement $evenementCrEate): self
+    {
+        if ($this->evenementCréeate->contains($evenementCrEate)) {
+            $this->evenementCréeate->removeElement($evenementCrEate);
+            // set the owning side to null (unless already changed)
+            if ($evenementCrEate->getUserCreate() === $this) {
+                $evenementCrEate->setUserCreate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenementJoin(): Collection
+    {
+        return $this->evenementJoin;
+    }
+
+    public function addEvenementJoin(Evenement $evenementJoin): self
+    {
+        if (!$this->evenementJoin->contains($evenementJoin)) {
+            $this->evenementJoin[] = $evenementJoin;
+        }
+
+        return $this;
+    }
+
+    public function removeEvenementJoin(Evenement $evenementJoin): self
+    {
+        if ($this->evenementJoin->contains($evenementJoin)) {
+            $this->evenementJoin->removeElement($evenementJoin);
+        }
 
         return $this;
     }
