@@ -65,7 +65,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="userCreate", orphanRemoval=true)
      */
-    private $evenementCréeate;
+    private $evenementCreate;
 
     /**
      * @ORM\ManyToMany(targetEntity=Evenement::class, inversedBy="usersJoin")
@@ -75,7 +75,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->commentaire = new ArrayCollection();
-        $this->evenementCréeate = new ArrayCollection();
+        $this->evenementCreate = new ArrayCollection();
         $this->evenementJoin = new ArrayCollection();
     }
 
@@ -239,28 +239,28 @@ class User implements UserInterface
     /**
      * @return Collection|Evenement[]
      */
-    public function getEvenementCréeate(): Collection
+    public function getEvenementCreate(): Collection
     {
-        return $this->evenementCréeate;
+        return $this->evenementCreate;
     }
 
-    public function addEvenementCrEate(Evenement $evenementCrEate): self
+    public function addEvenementCreate(Evenement $evenementCreate): self
     {
-        if (!$this->evenementCréeate->contains($evenementCrEate)) {
-            $this->evenementCréeate[] = $evenementCrEate;
-            $evenementCrEate->setUserCreate($this);
+        if (!$this->evenementCreate->contains($evenementCreate)) {
+            $this->evenementCreate[] = $evenementCreate;
+            $evenementCreate->setUserCreate($this);
         }
 
         return $this;
     }
 
-    public function removeEvenementCrEate(Evenement $evenementCrEate): self
+    public function removeEvenementCreate(Evenement $evenementCreate): self
     {
-        if ($this->evenementCréeate->contains($evenementCrEate)) {
-            $this->evenementCréeate->removeElement($evenementCrEate);
+        if ($this->evenementCreate->contains($evenementCreate)) {
+            $this->evenementCreate->removeElement($evenementCreate);
             // set the owning side to null (unless already changed)
-            if ($evenementCrEate->getUserCreate() === $this) {
-                $evenementCrEate->setUserCreate(null);
+            if ($evenementCreate->getUserCreate() === $this) {
+                $evenementCreate->setUserCreate(null);
             }
         }
 
