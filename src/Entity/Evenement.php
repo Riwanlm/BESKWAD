@@ -27,7 +27,7 @@ class Evenement
     /**
      * @ORM\Column(type="date")
      */
-    private $date;
+    private $dateEvent;
 
     /**
      * @ORM\Column(type="integer")
@@ -50,15 +50,20 @@ class Evenement
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="evenementCréeate")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime")
      */
-    private $userCreate;
+    private $dateCreation;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="evenementJoin")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userCreate")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $usersJoin;
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="userJoin")
+     */
+    private $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
@@ -79,7 +84,7 @@ class Evenement
 
     public function __construct()
     {
-        $this->usersJoin = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->commentaire = new ArrayCollection();
     }
 
@@ -100,14 +105,14 @@ class Evenement
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateEvent(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->dateEvent;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateEvent(\DateTimeInterface $dateEvent): self
     {
-        $this->date = $date;
+        $this->dateEvent = $dateEvent;
 
         return $this;
     }
@@ -160,14 +165,26 @@ class Evenement
         return $this;
     }
 
-    public function getUserCreate(): ?User
+    public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->userCreate;
+        return $this->dateCreation;
     }
 
-    public function setUserCreate(?User $userCreate): self
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
-        $this->userCreate = $userCreate;
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -175,26 +192,26 @@ class Evenement
     /**
      * @return Collection|User[]
      */
-    public function getUsersJoin(): Collection
+    public function getUsers(): Collection
     {
-        return $this->usersJoin;
+        return $this->users;
     }
 
-    public function addUsersJoin(User $usersJoin): self
+    public function addUser(User $user): self
     {
-        if (!$this->usersJoin->contains($usersJoin)) {
-            $this->usersJoin[] = $usersJoin;
-            $usersJoin->addEvenementJoin($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addUserJoin($this);
         }
 
         return $this;
     }
 
-    public function removeUsersJoin(User $usersJoin): self
+    public function removeUser(User $user): self
     {
-        if ($this->usersJoin->contains($usersJoin)) {
-            $this->usersJoin->removeElement($usersJoin);
-            $usersJoin->removeEvenementJoin($this);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeUserJoin($this);
         }
 
         return $this;

@@ -13,37 +13,37 @@ class SportFixtures extends Fixture
         //$sports = ["Football", "Course à pied", "BMX", "Tennis", "Badminton", "Natation", "Escalade", "Sprint", s"Basket-ball", "Marche"];
 
         $foot = new Sport();
-        $foot->setLibelle("Football");
+        $foot->setNom("Football");
         $foot->setImage("football.png");
         $manager->persist($foot);
         $this->addReference("Football", $foot);
 
         $running = new Sport();
-        $running->setLibelle("Course à pied");
+        $running->setNom("Course à pied");
         $running->setImage("run.png");
         $manager->persist($running);
         $this->addReference("Course à pied", $running);
 
         $tennis = new Sport();
-        $tennis->setLibelle("Tennis");
+        $tennis->setNom("Tennis");
         $tennis->setImage("tennis.png");
         $manager->persist($tennis);
         $this->addReference("Tennis", $tennis);
 
         $bmx = new Sport();
-        $bmx->setLibelle("BMX");
+        $bmx->setNom("BMX");
         $bmx->setImage("bmx.png");
         $manager->persist($bmx);
         $this->addReference("BMX", $bmx);
 
         $climb = new Sport();
-        $climb->setLibelle("Escalade");
+        $climb->setNom("Escalade");
         $climb->setImage("climbing.png");
         $manager->persist($climb);
         $this->addReference("Escalade", $climb);
 
         $swim = new Sport();
-        $swim->setLibelle("Natation");
+        $swim->setNom("Natation");
         $swim->setImage("swimming.png");
         $manager->persist($swim);
         $this->addReference("Natation", $swim);

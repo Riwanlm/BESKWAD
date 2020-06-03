@@ -10,14 +10,14 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connectez en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
@@ -36,12 +36,16 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Se connecter
     </button>
 
     <div class="row">
-        <p>Vous n'avez pas de compte ?</p>
-        <a href="{{ path('app_register') }}">Créer un compte</a>
+        <p>
+            <a href="{{ path('app_register') }}">Inscription</a> | <a href="#">Mot de passe oublié ?</a>
+        </p>
+    </div>
+    <div class="row">
+        <a href="{{ path('default') }}">— Retour au site —</a>
     </div>
 </form>
 {% endblock %}

@@ -22,7 +22,7 @@ class Sport
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $libelle;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -44,14 +44,14 @@ class Sport
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getNom(): ?string
     {
-        return $this->libelle;
+        return $this->nom;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setNom(string $nom): self
     {
-        $this->libelle = $libelle;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -59,11 +59,6 @@ class Sport
     public function getImage(): ?string
     {
         return $this->image;
-    }
-
-    public function getImageOrPlaceHolder(): string
-    {
-        return empty($this->getImage()) ? "images/placeholder.png" : "images/".$this->getImage();
     }
 
     public function setImage(?string $image): self

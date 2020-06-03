@@ -6,12 +6,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -54,31 +52,30 @@ class User implements UserInterface
     private $dateNaissance;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $ville;
-
-    /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="user", orphanRemoval=true)
      */
     private $commentaire;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="userCreate", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
      */
-    private $evenementCreate;
+    private $ville;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Evenement::class, inversedBy="usersJoin")
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="user", orphanRemoval=true)
      */
-    private $evenementJoin;
+    private $userCreate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Evenement::class, inversedBy="users")
+     */
+    private $userJoin;
 
     public function __construct()
     {
         $this->commentaire = new ArrayCollection();
-        $this->evenementCreate = new ArrayCollection();
-        $this->evenementJoin = new ArrayCollection();
+        $this->userCreate = new ArrayCollection();
+        $this->userJoin = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,18 +192,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?Ville $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Commentaire[]
      */
@@ -238,31 +223,43 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Evenement[]
      */
-    public function getEvenementCreate(): Collection
+    public function getUserCreate(): Collection
     {
-        return $this->evenementCreate;
+        return $this->userCreate;
     }
 
-    public function addEvenementCreate(Evenement $evenementCreate): self
+    public function addUserCreate(Evenement $userCreate): self
     {
-        if (!$this->evenementCreate->contains($evenementCreate)) {
-            $this->evenementCreate[] = $evenementCreate;
-            $evenementCreate->setUserCreate($this);
+        if (!$this->userCreate->contains($userCreate)) {
+            $this->userCreate[] = $userCreate;
+            $userCreate->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeEvenementCreate(Evenement $evenementCreate): self
+    public function removeUserCreate(Evenement $userCreate): self
     {
-        if ($this->evenementCreate->contains($evenementCreate)) {
-            $this->evenementCreate->removeElement($evenementCreate);
+        if ($this->userCreate->contains($userCreate)) {
+            $this->userCreate->removeElement($userCreate);
             // set the owning side to null (unless already changed)
-            if ($evenementCreate->getUserCreate() === $this) {
-                $evenementCreate->setUserCreate(null);
+            if ($userCreate->getUser() === $this) {
+                $userCreate->setUser(null);
             }
         }
 
@@ -272,24 +269,24 @@ class User implements UserInterface
     /**
      * @return Collection|Evenement[]
      */
-    public function getEvenementJoin(): Collection
+    public function getUserJoin(): Collection
     {
-        return $this->evenementJoin;
+        return $this->userJoin;
     }
 
-    public function addEvenementJoin(Evenement $evenementJoin): self
+    public function addUserJoin(Evenement $userJoin): self
     {
-        if (!$this->evenementJoin->contains($evenementJoin)) {
-            $this->evenementJoin[] = $evenementJoin;
+        if (!$this->userJoin->contains($userJoin)) {
+            $this->userJoin[] = $userJoin;
         }
 
         return $this;
     }
 
-    public function removeEvenementJoin(Evenement $evenementJoin): self
+    public function removeUserJoin(Evenement $userJoin): self
     {
-        if ($this->evenementJoin->contains($evenementJoin)) {
-            $this->evenementJoin->removeElement($evenementJoin);
+        if ($this->userJoin->contains($userJoin)) {
+            $this->userJoin->removeElement($userJoin);
         }
 
         return $this;
