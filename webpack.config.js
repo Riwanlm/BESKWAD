@@ -1,10 +1,25 @@
 var Encore = require('@symfony/webpack-encore');
+const CopyPlugin = require('copy-webpack-plugin');
+
+// On copie les fichiers de assets dans public
+module.exports = {
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: 'source', to: 'dest' },
+                { from: 'other', to: 'public' },
+            ],
+        }),
+    ],
+};
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
+
+
 
 Encore
     // directory where compiled assets will be stored
@@ -13,6 +28,9 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
+    .addStyleEntry('css/app', './assets/css/app.scss')
+
+    .autoProvidejQuery()
 
     /*
      * ENTRY CONFIG
@@ -21,7 +39,7 @@ Encore
      * (including one that's included on every page - e.g. "app")
      *
      * Each entry will result in one JavaScript file (e.g. app.js)
-     * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
+     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
     //.addEntry('page1', './assets/js/page1.js')
@@ -53,22 +71,40 @@ Encore
         config.corejs = 3;
     })
 
+    .copyFiles({
+        from: './assets/images',
+
+        // optional target path, relative to the output dir
+        //to: 'images/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+        //to: 'images/[path][name].[hash:8].[ext]',
+
+        // only copy files matching this pattern
+        //pattern: /\.(png|jpg|jpeg)$/
+    })
+
     // enables Sass/SCSS support
-    .enableSassLoader() //cette ligne à été décommentée
+    .enableSassLoader()
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+// .addPlugin(new CopyWebpackPlugin([
+//     {from: './assets/images', to: 'images'}
+// ]))
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+// uncomment if you use TypeScript
+//.enableTypeScriptLoader()
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+//.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
+
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
 ;
+
 
 module.exports = Encore.getWebpackConfig();
