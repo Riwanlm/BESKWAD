@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Commentaire
 {
@@ -90,5 +91,18 @@ class Commentaire
         $this->evenement = $evenement;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setDateCreation(new \DateTime());
+    }
+
+    public function __toString()
+    {
+        return $this->getContenu();
     }
 }

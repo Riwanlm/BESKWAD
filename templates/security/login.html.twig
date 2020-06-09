@@ -3,7 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<form method="post" class="container">
+<form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -13,16 +13,32 @@
             Vous êtes connectez en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
+    <div class="container mt-5 mb-5">
+        <div class="col-6 offset-3 text-center card" style="border: 0.3em solid #E2474B; border-radius: 1.5em; background-color: #F2F0E1;">
+            <div class="card-body">
+                <h1 class="h3 mb-3 font-weight-normal mt-5">Se connecter au site</h1>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mt-5 mb-5" required autofocus placeholder="Email">
+                <input type="password" name="password" id="inputPassword" class="form-control mb-5" required placeholder="Mot de passe">
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <button class="btn btn-lg pl-5 pr-5 pt-3 pb-3" style="background-color: #E2474B; color: white; border-radius: 50px;" type="submit">Se connecter</button>
+
+                <div class="pt-5">
+                    <a href="{{ path('app_register') }}" class="badge badge-info">Inscription</a> | <a href="#" class="badge badge-info">Mot de passe oublié ?</a>
+                </div>
+                <div class="row d-flex justify-content-between pt-5">
+                    <div>
+                        <a href="{{ path('default') }}" class="badge badge-info">— Retour au site —</a>
+                    </div>
+                    <div>
+                        <a href="#" class="badge badge-info">— Politique de confidentialité —</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -35,17 +51,4 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Se connecter
-    </button>
-
-    <div class="row">
-        <p>
-            <a href="{{ path('app_register') }}">Inscription</a> | <a href="#">Mot de passe oublié ?</a>
-        </p>
-    </div>
-    <div class="row">
-        <a href="{{ path('default') }}">— Retour au site —</a>
-    </div>
-</form>
 {% endblock %}

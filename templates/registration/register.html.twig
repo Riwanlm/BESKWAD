@@ -3,20 +3,53 @@
 {% block title %}Création de compte{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Créer votre compte</h1>
 
-        {{ form_start(registrationForm) }}
+    <div class="container mt-5 mb-5">
+        <div class="col-6 offset-3 text-center card" style="border: 0.3em solid #E2474B; border-radius: 1.5em; background-color: #F2F0E1;">
+            <div class="card-body">
+                <h1>S'inscrire au site</h1>
+                {{ form_start(registrationForm) }}
 
-            {{ form_row(registrationForm.nom) }}
-            {{ form_row(registrationForm.prenom) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.dateNaissance) }}
-            {{ form_row(registrationForm.plainPassword) }}
-            {{ form_row(registrationForm.agreeTerms) }}
+                <div class="card-body">
+                    {{ form_widget(registrationForm.nom, { 'attr': {'placeholder': 'Nom'} }) }}
+                </div>
+                <div class="card-body">
+                    {{ form_widget(registrationForm.prenom, { 'attr': {'placeholder': 'Prénom'}}) }}
+                </div>
+                <div class="card-body">
+                    {{ form_widget(registrationForm.email, { 'attr': {'placeholder': 'Adresse mail'}}) }}
+                </div>
+                <div class="card-body">
+                    {{ form_widget(registrationForm.dateNaissance) }}
+                </div>
+                <div class="card-body">
+                    {{ form_widget(registrationForm.plainPassword.first, { 'attr': {'placeholder': 'Mot de passe'}}) }}
+                </div>
+                <div class="card-body">
+                    {{ form_widget(registrationForm.plainPassword.second, { 'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}
+                </div>
+                <div class="card-body text-justify">
+                    {{ form_row(registrationForm.agreeTerms) }}
+                </div>
 
-            <button type="submit" class="btn">S'enregistrer</button>
+                <button type="submit" class="btn btn-lg pl-5 pr-5 pt-3 pb-3" style="background-color: #E2474B; color: white; border-radius: 50px;">
+                    Inscription
+                </button>
+                <div class="pt-5">
+                    <a href="{{ path('app_login') }}" class="badge badge-info p-2">| Connexion |</a>
+                </div>
+                <div class="row d-flex justify-content-between pt-5">
+                    <div>
+                        <a href="{{ path('default') }}" class="badge badge-info">— Retour au site —</a>
+                    </div>
+                    <div>
+                        <a href="#" class="badge badge-info">— Politique de confidentialité —</a>
+                    </div>
+                </div>
 
-        {{ form_end(registrationForm) }}
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
     </div>
+
 {% endblock %}

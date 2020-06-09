@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=EvenementRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Evenement
 {
@@ -270,5 +271,18 @@ class Evenement
         $this->sport = $sport;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setDateCreation(new \DateTime());
+    }
+
+    public function __toString()
+    {
+        return $this->getAdresse();
     }
 }
