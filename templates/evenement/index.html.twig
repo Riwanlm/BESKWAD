@@ -3,22 +3,10 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
+    <h1>Liste des événements</h1>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Adresse</th>
-                <th>DateEvent</th>
-                <th>NbPersonne</th>
-                <th>HoraireDebut</th>
-                <th>HoraireFin</th>
-                <th>Description</th>
-                <th>DateCreation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
+        
         <tbody>
         {% for evenement in evenements %}
             <tr>
@@ -44,4 +32,5 @@
     </table>
 
     <a href="{{ path('evenement_new') }}">Create new</a>
+
 {% endblock %}

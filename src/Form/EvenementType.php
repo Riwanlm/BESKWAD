@@ -7,6 +7,8 @@ use App\Entity\Sport;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,10 +29,15 @@ class EvenementType extends AbstractType
             ])
             ->add('adresse')
             ->add('nbPersonne')
-            ->add('dateEvent')
+            ->add('dateEvent', DateType::class, array(
+                'widget'=> 'single_text',
+                'format'=> 'yyyy-MM-dd',
+            ))
             ->add('horaireDebut')
             ->add('horaireFin')
-            ->add('description')
+            ->add('description',TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
         ;
     }
 

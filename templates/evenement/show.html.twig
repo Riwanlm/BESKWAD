@@ -3,48 +3,47 @@
 {% block title %}Evenement{% endblock %}
 
 {% block body %}
-    <h1>Evenement</h1>
+    <div class="container">
+        <h1 class="text-center mt-5">Détail de l'événément</h1>
+        <div class="row mt-5">
+            <div class="card card-body col-4 mr-3">
+                <p>Date : {{ evenement.dateevent | date }}</p>
+                <p>Horaire Début : {{ evenement.horairedebut | date('H:s') }}</p>
+                <p>Date de Fin : {{ evenement.horairefin | date('H:s') }}</p>
+            </div>
+            <div class="card card-body col-3 mr-3">
+                <th>Sport : </th>
+                <td> {{ evenement.sport.nom }}</td>
+                <p>Places: {{ evenement.nbpersonne }}</p>
+            </div>
+            <div class="card card-body col-4">
+                <p>Villes : {{ evenement.ville }}</p>
+                <p>Adresse : {{ evenement.adresse }}</p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="card card-body col-4 mr-3">
+                <img src="{{ asset(evenement.sport.imageOrPlaceholder) }}" alt="" class="img-thumbnail border-0">
+            </div>
+            <div class="card card-body col-7">
+                <p>Description : {{ evenement.description }}</p>
+            </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ evenement.id }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ evenement.adresse }}</td>
-            </tr>
-            <tr>
-                <th>DateEvent</th>
-                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NbPersonne</th>
-                <td>{{ evenement.nbPersonne }}</td>
-            </tr>
-            <tr>
-                <th>HoraireDebut</th>
-                <td>{{ evenement.horaireDebut ? evenement.horaireDebut|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>HoraireFin</th>
-                <td>{{ evenement.horaireFin ? evenement.horaireFin|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ evenement.description }}</td>
-            </tr>
-            <tr>
-                <th>DateCreation</th>
-                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        </div>
 
-    <a href="{{ path('evenement_index') }}">back to list</a>
-
-    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-
-    {{ include('evenement/_delete_form.html.twig') }}
+        <div class="row mt-5 mb-5">
+            <div class="col-6 d-flex justify-content-start">
+                <a class="btn btn-lg btn-info" href="{{ path('evenement_index') }}" role="button">Revenir à la liste</a>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-lg btn-info" href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Modifier</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            {{ include('evenement/_delete_form.html.twig') }}
+        </div>
+    </div>
+    <div class="row container card card-body card-text mx-auto mt-5 p-5 mb-5 text-center">
+        <h2>La fonctionnalité commentaire sera disponnible dans une version ultérieur ! patientez 🤡</h2>
+    </div>
 {% endblock %}

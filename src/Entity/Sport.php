@@ -61,6 +61,11 @@ class Sport
         return $this->image;
     }
 
+    public function getImageOrPlaceholder(): string
+    {
+        return empty($this->getImage()) ? "images/placeholder.png" : "build/" . $this->getImage();
+    }
+
     public function setImage(?string $image): self
     {
         $this->image = $image;
