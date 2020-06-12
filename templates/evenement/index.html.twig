@@ -3,10 +3,27 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-    <h1>Liste des événements</h1>
+    <div class="container">
+        <div class="row">
+            <a href="#" class="btn btn-lg btn-primary  col-6 offset-3 mt-5 mb-5" type="button">Affinez votre recherche d'événements</a>
+        </div>
+
+        <h1 class="text-center mt-2">Liste des événements</h1>
+
+        <div class="row">
+            {% for evenement in evenements  %}
+                <article class="col-4">
+                    {% include 'evenement/_thumbnail.html.twig'%}
+                </article>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
 
     <table class="table">
-        
+
         <tbody>
         {% for evenement in evenements %}
             <tr>

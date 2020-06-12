@@ -14,7 +14,7 @@
             <div class="card card-body col-3 mr-3">
                 <th>Sport : </th>
                 <td> {{ evenement.sport.nom }}</td>
-                <p>Places: {{ evenement.nbpersonne }}</p>
+                <p>Places: {{ evenement.placesRestantes }}/{{ evenement.nbPersonne }}</p>
             </div>
             <div class="card card-body col-4">
                 <p>Villes : {{ evenement.ville }}</p>
@@ -35,13 +35,26 @@
             <div class="col-6 d-flex justify-content-start">
                 <a class="btn btn-lg btn-info" href="{{ path('evenement_index') }}" role="button">Revenir à la liste</a>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-                <a class="btn btn-lg btn-info" href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Modifier</a>
-            </div>
+
+            {% if app.user == null %}
+            {% elseif app.user.prenom == evenement.user.prenom %}
+                <div class="col-12 d-flex justify-content-end">
+                    <a class="btn btn-lg btn-info" href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Modifier</a>
+                </div>
+                <div class=" col-12 d-flex justify-content-end mt-4">
+                    {{ include('evenement/_delete_form.html.twig') }}
+                </div>
+            {% elseif app.user.prenom != evenement.user.prenom %}
+                <fieldset class="col-2 offset-4 d-flex justify-content-end" disabled>
+                    <a class="btn btn-lg btn-secondary"  href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Non autorisé</a>
+                </fieldset>
+            {% endif %}
+
         </div>
-        <div class="d-flex justify-content-end">
-            {{ include('evenement/_delete_form.html.twig') }}
-        </div>
+
+    </div>
+    <div>
+        <a href="#">S'inscrire à l'événement</a>
     </div>
     <div class="row container card card-body card-text mx-auto mt-5 p-5 mb-5 text-center">
         <h2>La fonctionnalité commentaire sera disponnible dans une version ultérieur ! patientez 🤡</h2>

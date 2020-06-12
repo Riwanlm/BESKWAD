@@ -6,12 +6,21 @@
 
 <div class="container">
     <h1>Bienvenu sur votre profile {{ app.user.fullname }} !</h1>
+
     <a href="{{ path('evenement_new') }}" class="btn btn-success">
         <i class="fa fa-plus-circle"></i>
         Créer un événement
     </a>
     <br><br>
     <h2>Mes événements</h2>
+
+    <div class="">
+    {% for evenement in app.user.userCreate %}
+        <article class="col-4">
+            {% include 'evenement/_thumbnail.html.twig'%}
+        </article>
+    {% endfor %}
+    </div>
     <div class="row">
 
     </div>

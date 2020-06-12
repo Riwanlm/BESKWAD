@@ -285,4 +285,8 @@ class Evenement
     {
         return $this->getAdresse();
     }
+
+    public function getPlacesRestantes() {
+        return $this->getNbPersonne() -  count($this->getUsers());
+    }
 }

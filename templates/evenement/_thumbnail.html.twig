@@ -1,3 +1,18 @@
-<div class="card">
-    <h1>Hello carte !</h1>
+<div class="card card-body mb-5">
+    <div class="card-img-top card-header">
+        <img src="{{ asset(evenement.sport.imageOrPlaceholder) }}" class="card-img" alt="{{ evenement.sport.nom }}">
+    </div>
+
+    <div class="card-body">
+        <h4 class="card-title">Créée par {{ evenement.user.fullname }}</h4>
+        <span class="badge badge-pill badge-primary mb-2">{{ evenement.sport }}</span>
+        <h5 class="card-subtitle mb-2 text-muted">Date de l'événement : {{ evenement.dateEvent | date('d.m.Y') }}</h5>
+        <h6>Lieu : {{ evenement.ville }}</h6>
+
+        <p class="card-text">Début : {{ evenement.horaireDebut | date('H:i:s') }}</p>
+        <a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="btn btn-primary offset-9">
+            <i class="fa fa-eye"></i>
+            Détail
+        </a>
+    </div>
 </div>
