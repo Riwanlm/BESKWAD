@@ -16,38 +16,12 @@
                     {% include 'evenement/_thumbnail.html.twig'%}
                 </article>
             {% endfor %}
-
+        </div>
+        <div class="navigation col-12 offset-4 mb-5">
+            {{ knp_pagination_render(evenements) }}
         </div>
 
+
     </div>
-
-
-    <table class="table">
-
-        <tbody>
-        {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.id }}</td>
-                <td>{{ evenement.adresse }}</td>
-                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.nbPersonne }}</td>
-                <td>{{ evenement.horaireDebut ? evenement.horaireDebut|date('H:i:s') : '' }}</td>
-                <td>{{ evenement.horaireFin ? evenement.horaireFin|date('H:i:s') : '' }}</td>
-                <td>{{ evenement.description }}</td>
-                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('evenement_new') }}">Create new</a>
 
 {% endblock %}

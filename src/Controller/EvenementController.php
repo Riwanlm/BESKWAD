@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,19 @@ class EvenementController extends AbstractController
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $donnees = $this->getDoctrine()->getRepository(Evenement::class)->findBy([],
+            ['dateCreation'=>'DESC']);
+
+        $evenements = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 3)
+        );
+
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenementRepository->findBy([], ['dateCreation'=>'DESC']),
+            'evenements' => $evenements,
         ]);
     }
 
