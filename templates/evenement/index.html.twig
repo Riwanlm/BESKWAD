@@ -4,9 +4,13 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
-            <a href="#" class="btn btn-lg btn-primary  col-6 offset-3 mt-5 mb-5" type="button">Affinez votre recherche d'événements</a>
+        <div class="row col-12 text-center offset-5">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn">{{ button_label|default('Filtrer') }}</button>
+            {{ form_end(form) }}
         </div>
+        <a href="{{ path('evenement_index') }}">Voir la liste complète</a>
 
         <h1 class="text-center mt-2">Liste des événements</h1>
 

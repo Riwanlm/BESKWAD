@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Form\EvenementSearchTypeType;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -21,7 +22,16 @@ class EvenementController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $donnees = $this->getDoctrine()->getRepository(Evenement::class)->findBy([],
+        $evenement = new Evenement();
+        $form = $this->createForm(EvenementSearchTypeType::class, $evenement, ["method"=>"GET"]);
+        $form->handleRequest($request);
+
+        $filter = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filter['sport'] = $evenement->getSport();
+            $filter['ville'] = $evenement->getVille();
+        }
+        $donnees = $this->getDoctrine()->getRepository(Evenement::class)->findBy($filter,
             ['dateCreation'=>'DESC']);
 
         $evenements = $paginator->paginate(
@@ -32,6 +42,7 @@ class EvenementController extends AbstractController
 
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
+            'form' => $form->createView(),
         ]);
     }
 
