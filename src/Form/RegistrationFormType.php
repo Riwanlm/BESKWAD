@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
                 'widget'=> 'single_text',
                 'format'=> 'yyyy-MM-dd'
             ))
+            ->add('telephone')
 
             ->add('plainPassword',RepeatedType::class,[
                 'type' => PasswordType::class,

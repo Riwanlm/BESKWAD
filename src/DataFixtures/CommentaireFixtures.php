@@ -59,6 +59,23 @@ class CommentaireFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($contenu6);
         $this->addReference("contenu6", $contenu6);
 
+        $contenu7 = new Commentaire();
+        $contenu7->setUser($this->getReference("Julien"));
+        $contenu7->setEvenement($this->getReference("event4-BMX"));
+        $contenu7->setDateCreation(new \DateTime("2020/08/25 12:34:56"));
+        $contenu7->setContenu("Ça fait tellement longtemps que je n'ai pas pratiquer cette discipline 😱");
+        $manager->persist($contenu7);
+        $this->addReference("contenu7", $contenu7);
+
+        $contenu8 = new Commentaire();
+        $contenu8->setUser($this->getReference("Julien"));
+        $contenu8->setEvenement($this->getReference("event4-BMX"));
+        $contenu8->setDateCreation(new \DateTime("2020/08/28 18:12:42"));
+        $contenu8->setContenu("L'endroit ou l'on va faire du BMX est tout neuf en plus j'ai trop hâte d'y être 🤪");
+        $manager->persist($contenu8);
+        $this->addReference("contenu8", $contenu8);
+
+
         $manager->flush();
     }
 

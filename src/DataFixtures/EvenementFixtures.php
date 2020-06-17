@@ -53,6 +53,20 @@ class EvenementFixtures extends Fixture implements DependentFixtureInterface
         // $product = new Product();
         // $manager->persist($product);
 
+        $event4 = new Evenement();
+        $event4->setUser($this->getReference("Julien"));
+        $event4->setSport($this->getReference("BMX"));
+        $event4->setNbPersonne(3);
+        $event4->setAdresse("3 rue de la Rivière Lonnet");
+        $event4->setVille($this->getReference("ville-Quimper"));
+        $event4->setDateEvent(new \DateTime("2020/08/15"));
+        $event4->setHoraireDebut(new \DateTime("14:30:00"));
+        $event4->setHoraireFin(new \DateTime("16:00:00"));
+        $event4->setDescription("There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.");
+        $event4->setDateCreation(new \DateTime("2020/06/25 11:25:37"));
+        $manager->persist($event4);
+        $this->addReference("event4-BMX", $event4);
+
         $manager->flush();
     }
 

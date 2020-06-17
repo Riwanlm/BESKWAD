@@ -29,6 +29,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
          $admin->setPrenom("Riwan");
          $admin->setDateNaissance(new \DateTime("1995/04/10"));
          $admin->setEmail("riwanlm@gmail.com");
+         $admin->setTelephone("0689567898");
          $admin->setPassword($this->encoder->encodePassword($admin, "litzavse"));
          $admin->setVille($this->getReference("ville-Rennes"));
          $admin->setRoles(["ROLE_ADMIN"]);
@@ -40,6 +41,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
          $julien->setPrenom("Julien");
          $julien->setDateNaissance(new \DateTime("1998/07/14"));
          $julien->setEmail("jujuallio@hotmail.fr");
+         $julien->setTelephone("0634675312");
          $julien->setPassword($this->encoder->encodePassword($julien, "juju-mdp"));
          $julien->setVille($this->getReference("ville-Pontivy"));
          $julien->setRoles(["ROLE_USER"]);
@@ -51,6 +53,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
          $cyril->setPrenom("Cyril");
          $cyril->setDateNaissance(new \DateTime("1987/10/04"));
          $cyril->setEmail("cyriloiseau@orange.fr");
+         $cyril->setTelephone("0675097898");
          $cyril->setPassword($this->encoder->encodePassword($cyril, "cyril-mdp"));
          $cyril->setVille($this->getReference("ville-Lorient"));
          $cyril->setRoles(["ROLE_USER"]);
@@ -62,6 +65,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
          $solenn->setPrenom("Solenn");
          $solenn->setDateNaissance(new \DateTime("1993/03/02"));
          $solenn->setEmail("sol.robic@gmail.com");
+         $solenn->setTelephone("0612095632");
          $solenn->setPassword($this->encoder->encodePassword($solenn, "solenn-mdp"));
          $solenn->setVille($this->getReference("ville-Carnac"));
          $solenn->setRoles(["ROLE_USER"]);

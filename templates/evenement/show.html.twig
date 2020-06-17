@@ -12,13 +12,13 @@
                 <p>Date de Fin : {{ evenement.horairefin | date('H:s') }}</p>
             </div>
             <div class="card card-body col-3 mr-3">
-                <th>Sport : </th>
-                <td> {{ evenement.sport.nom }}</td>
+                <p>Sport :  {{ evenement.sport.nom }}</p>
                 <p>Places: {{ evenement.placesRestantes }}/{{ evenement.nbPersonne }}</p>
             </div>
             <div class="card card-body col-4">
                 <p>Villes : {{ evenement.ville }}</p>
                 <p>Adresse : {{ evenement.adresse }}</p>
+                <p>Contacter l'organisateur : {{ evenement.user.telephone }}</p>
             </div>
         </div>
         <div class="row mt-3">
@@ -46,7 +46,7 @@
                 </div>
             {% elseif app.user.prenom != evenement.user.prenom %}
                 <fieldset class="col-2 offset-4 d-flex justify-content-end" disabled>
-                    <a class="btn btn-lg btn-secondary"  href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Non autorisé</a>
+                    <button class="btn btn-lg btn-secondary">Non autorisé</button>
                 </fieldset>
             {% endif %}
 

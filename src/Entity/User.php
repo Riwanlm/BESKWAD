@@ -71,6 +71,11 @@ class User implements UserInterface
      */
     private $userJoin;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $telephone;
+
     public function __construct()
     {
         $this->commentaire = new ArrayCollection();
@@ -294,5 +299,17 @@ class User implements UserInterface
 
     public function getfullname() {
         return $this->getPrenom() . " " . $this->getNom();
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
     }
 }
