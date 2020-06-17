@@ -10,9 +10,14 @@
         <h6>Lieu : {{ evenement.ville }}</h6>
 
         <p class="card-text">Début : {{ evenement.horaireDebut | date('H:i:s') }}</p>
-        <a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="btn btn-primary offset-9">
-            <i class="fa fa-eye"></i>
-            Détail
-        </a>
+
+        {% if app.user %}
+            <a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="btn btn-primary offset-9">
+                <i class="fa fa-eye"></i>
+                Détail
+            </a>
+        {% else %}
+            <span class="badge badge-pill badge-danger mb-2">Connectez vous poour accéder au détail</span>
+        {% endif %}
     </div>
 </div>
