@@ -13,6 +13,9 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('contenu')
+            ->add('user')
+            ->add('evenement')
+            ->add('dateCreation')
             //evenement_id can't be null --> voir projet pierre avec la donnation
         ;
     }

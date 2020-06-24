@@ -74,7 +74,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 10, max = 10, minMessage = "min_lenght", maxMessage = "max_lenght")
+     * @Assert\Length(min = 10, max = 10
+     *     , minMessage = "min_lenght", maxMessage = "max_lenght")
      * @Assert\Regex(pattern="/^[0-9]*$/", message="number_only")
      */
     private $telephone;
@@ -314,5 +315,9 @@ class User implements UserInterface
         $this->telephone = $telephone;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNom();
     }
 }

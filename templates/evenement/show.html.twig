@@ -14,11 +14,14 @@
             <div class="card card-body col-3 mr-3">
                 <p>Sport :  {{ evenement.sport.nom }}</p>
                 <p>Places: {{ evenement.placesRestantes }}/{{ evenement.nbPersonne }}</p>
-            </div>
-            <div class="card card-body col-4">
                 <p>Villes : {{ evenement.ville }}</p>
                 <p>Adresse : {{ evenement.adresse }}</p>
-                <p>Contacter l'organisateur : {{ evenement.user.telephone }}</p>
+            </div>
+            <div class="card card-body col-4">
+                <h5>Contacter {{ evenement.user.fullname }}</h5>
+                <hr>
+                <p>Par mail : {{ evenement.user.email }}</p>
+                <p>Par téléphone : {{ evenement.user.telephone }}</p>
             </div>
         </div>
         <div class="row mt-3">
@@ -37,14 +40,14 @@
             </div>
 
             {% if app.user == null %}
-            {% elseif app.user.prenom == evenement.user.prenom %}
+            {% elseif app.user.fullname == evenement.user.fullname %}
                 <div class="col-12 d-flex justify-content-end">
                     <a class="btn btn-lg btn-info" href="{{ path('evenement_edit', {'id': evenement.id}) }}" role="button">Modifier</a>
                 </div>
                 <div class=" col-12 d-flex justify-content-end mt-4">
                     {{ include('evenement/_delete_form.html.twig') }}
                 </div>
-            {% elseif app.user.prenom != evenement.user.prenom %}
+            {% elseif app.user.fullname != evenement.user.fullname %}
                 <fieldset class="col-2 offset-4 d-flex justify-content-end" disabled>
                     <button class="btn btn-lg btn-secondary">Non autorisé</button>
                 </fieldset>

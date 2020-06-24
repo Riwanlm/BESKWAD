@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="container">
-    <h1>Bienvenu sur votre profile {{ app.user.fullname }} !</h1>
+    <h1 class="pt-5 pb-3">Bienvenu sur votre profile {{ app.user.fullname }} !</h1>
 
     <a href="{{ path('evenement_new') }}" class="btn btn-success">
         <i class="fa fa-plus-circle"></i>
@@ -21,6 +21,5 @@
         </article>
     {% endfor %}
     </div>
-
 </div>
 {% endblock %}

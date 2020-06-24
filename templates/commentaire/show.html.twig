@@ -16,6 +16,10 @@
                 <td>{{ commentaire.contenu }}</td>
             </tr>
             <tr>
+                <th>Créateur</th>
+                <td>{{ commentaire.user.fullname }}</td>
+            </tr>
+            <tr>
                 <th>DateCreation</th>
                 <td>{{ commentaire.dateCreation ? commentaire.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
