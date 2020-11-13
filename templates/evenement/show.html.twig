@@ -8,7 +8,7 @@
         <div class="row mt-5">
             <div class="card card-body col-4 mr-3">
                 <p>Date : {{ evenement.dateevent | date }}</p>
-                <p>Horaire Début : {{ evenement.horairedebut | date('H:s') }}</p>
+                <p>Horaire de Début : {{ evenement.horairedebut | date('H:s') }}</p>
                 <p>Date de Fin : {{ evenement.horairefin | date('H:s') }}</p>
             </div>
             <div class="card card-body col-3 mr-3">
@@ -29,7 +29,7 @@
                 <img src="{{ asset(evenement.sport.imageOrPlaceholder) }}" alt="" class="img-thumbnail border-0">
             </div>
             <div class="card card-body col-7">
-                <p>Description : {{ evenement.description }}</p>
+                <p>Description : <br><br> {{ evenement.description }}</p>
             </div>
 
         </div>
@@ -57,6 +57,6 @@
 
     </div>
     <div class="row container card card-body card-text mx-auto mt-5 p-5 mb-5 text-center">
-        <h2>La fonctionnalité commentaire sera disponnible dans une version ultérieur ! patientez 🤡</h2>
+        <h2>La fonctionnalité commentaire sera disponnible dans une version ultérieure ! <br><br>💤👨🏻‍💻 PATIENTEZ 👨🏻‍💻💤</h2>
     </div>
 {% endblock %}

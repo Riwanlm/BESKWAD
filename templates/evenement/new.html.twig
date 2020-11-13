@@ -3,11 +3,29 @@
 {% block title %}New Evenement{% endblock %}
 
 {% block body %}
+
     <div class="container">
-        <h1>Créer un nouvel événement</h1>
+        {% if app.user %}
 
-        {{ include('evenement/_form.html.twig') }}
+            <div class="container">
+                <h1>Créer un nouvel événement</h1>
 
-        <a href="{{ path('evenement_index') }}">back to list</a>
+                {{ include('evenement/_form.html.twig') }}
+
+                <a href="{{ path('evenement_index') }}">back to list</a>
+            </div>
+
+
+        {% else %}
+            <div class="img text-center mt-5"><img src="{{ asset('build/img-not-connected.jpg') }}" class="img-thumbnail" alt="Responsive image" style="max-width: 50%"></div>
+            <div class="alert alert-danger m-5" role="alert">
+                <h4 class="alert-heading">Vous ne pouvez pas accèder à cette page !</h4>
+                <p>Seule les membres ayant créée une compte sur le site peuvent accéder à cette page et générer un événement sur la plateforme.</p>
+                <hr>
+                <p class="mb-0">Nous vous inviton à vous connecter ou créer un profil sur le site pour accéder à tous les avantages de BESKWAD !</p>
+                <a href="{{ path('app_login') }}" class="btn btn-info btn-lg btn-block mt-5 mb-5" role="button" aria-pressed="true">Se Connecter</a>
+            </div>
+
+        {% endif %}
     </div>
 {% endblock %}
